@@ -13,7 +13,10 @@ if ($mysqli->connect_errno) {
         if ($selected) {
             // create_tables($mysqli);
             // add_student($mysqli, 3, "Zaw Zaw");
-            get_all_student($mysqli);
+            // get_all_student($mysqli);
+            // get_student_with_id($mysqli, 2);
+            // delete_student($mysqli, 2);
+            update_student($mysqli, 2, "Ko KO");
         } else {
             echo "can not connect database";
         }
@@ -52,6 +55,41 @@ function get_all_student($mysqli)
     // foreach ($students as $value) {
     //     echo "Student  name is $value[1]<br>";
     // }
+}
+
+
+function get_student_with_id($mysqli, $id)
+{
+    $sql = "SELECT * FROM student WHERE student_id=$id";
+    $result = $mysqli->query($sql);
+    $student = $result->fetch_assoc();
+    if ($student) {
+        var_dump($student);
+    } else {
+        echo "student does not exit!";
+    }
+}
+
+function delete_student($mysqli, $id)
+{
+    $sql = "DELETE FROM student WHERE student_id=$id";
+    $status = $mysqli->query($sql);
+    if ($status) {
+        echo "student is deleted";
+    } else {
+        echo "cann't delete student";
+    }
+}
+
+function update_student($mysqli, $id, $name)
+{
+    $sql = "UPDATE student SET student_name='$name' WHERE student_id=$id";
+    $status = $mysqli->query($sql);
+    if ($status) {
+        echo "student is updated";
+    } else {
+        echo "cann't update student";
+    }
 }
 
 // [["id"=>1,"name"=>"Maung Maung"],["id"=>2,"name"=>"Aung Aung"]]
